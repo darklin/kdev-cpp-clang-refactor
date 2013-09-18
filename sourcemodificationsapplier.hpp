@@ -29,15 +29,27 @@
 
 #include "SourceReplacement.hpp"
 
+
+class QString;
 namespace KTextEditor
 {
 class Document;
+class Range;
 }
+class DocumentAdapter
+{
+public:
+    DocumentAdapter(KTextEditor::Document* d);
+    ~DocumentAdapter();
+    bool replaceText(const KTextEditor::Range range, const QString& text);
+private:
+    KTextEditor::Document* doc;
+};
 
 class SourceModificationsApplier
 {
 public:
-    void apply(KTextEditor::Document* doc, const SourceReplacements& changes);
+    void apply(DocumentAdapter& doc, const SourceReplacements& changes);
 };
 
 #endif  // SOURCEMODIFICATIONSAPPLIER_H
